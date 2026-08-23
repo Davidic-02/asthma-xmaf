@@ -1,0 +1,25 @@
+# Datasets — large, publicly redownloadable via src/data/ scripts
+data/raw/
+data/interim/
+data/processed/
+*.npz
+*.wav
+
+# Model weights
+models/
+
+# Environments
+.venv/
+tools/node_modules/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+
+# Manuscript drafts — kept out of version control entirely.
+# Code, results and figures are here for reproducibility; the paper itself
+# is versioned separately and belongs on a preprint server, not in the repo.
+paper/*.docx
+paper/*.md
+!paper/README.md

@@ -1,0 +1,10 @@
+{
+  "roc_auc_all": 0.870836687790376,
+  "roc_auc_non_abstained": 0.8811254995297545,
+  "coverage": 0.8500553009954179,
+  "n_conflict": 517,
+  "comprehensiveness_cited": 0.09992475016006068,
+  "comprehensiveness_random": 0.03564763605803599,
+  "sufficiency_cited": 0.016766150973292676,
+  "sufficiency_random": 0.08444842128258342
+}

@@ -1,0 +1,28 @@
+{
+  "best_model": "Logistic Regression",
+  "n": 6329,
+  "prevalence": 0.1271922894612103,
+  "features": [
+    "sex",
+    "age",
+    "ethnicity",
+    "income_poverty_ratio",
+    "household_size",
+    "family_hx_asthma",
+    "wheeze_12mo",
+    "wheeze_attacks",
+    "exercise_wheeze",
+    "nocturnal_dry_cough",
+    "household_smoker",
+    "n_household_smokers",
+    "bmi",
+    "height",
+    "fev1",
+    "fvc",
+    "pef",
+    "fev1_fvc_ratio",
+    "fev1_per_ht",
+    "pef_per_ht",
+    "log_cotinine"
+  ]
+}

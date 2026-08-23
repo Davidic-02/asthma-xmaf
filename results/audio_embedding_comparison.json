@@ -1,0 +1,27 @@
+{
+  "handcrafted": {
+    "roc_auc_mean": 0.6828527438800088,
+    "roc_auc_std": 0.056737538991187504,
+    "pr_auc_mean": 0.21411505082840337
+  },
+  "embeddings": {
+    "roc_auc_mean": 0.7302021336327906,
+    "roc_auc_std": 0.08017877097614019,
+    "pr_auc_mean": 0.3063433330413391
+  },
+  "embeddings_pca32": {
+    "roc_auc_mean": 0.6584811881580881,
+    "roc_auc_std": 0.057556680045281035,
+    "pr_auc_mean": 0.22679793508095147
+  },
+  "combined": {
+    "roc_auc_mean": 0.7324420098690172,
+    "roc_auc_std": 0.08252402515143567,
+    "pr_auc_mean": 0.30431854396078617
+  },
+  "combined_pca64": {
+    "roc_auc_mean": 0.711731585765506,
+    "roc_auc_std": 0.06167988557598447,
+    "pr_auc_mean": 0.22458169836170785
+  }
+}

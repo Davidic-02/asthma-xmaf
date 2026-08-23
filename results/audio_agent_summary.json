@@ -1,0 +1,18 @@
+{
+  "logistic_regression": {
+    "recording_roc_auc_mean": 0.6971791174401694,
+    "recording_roc_auc_std": 0.09140545479271868,
+    "recording_pr_auc_mean": 0.18385215001683022,
+    "patient_roc_auc_mean": 0.7054286335533652,
+    "patient_roc_auc_std": 0.10440450251953415,
+    "patient_pr_auc_mean": 0.22203235381845365
+  },
+  "gradient_boosting": {
+    "recording_roc_auc_mean": 0.6683947226591197,
+    "recording_roc_auc_std": 0.07816529216757287,
+    "recording_pr_auc_mean": 0.1469453100280127,
+    "patient_roc_auc_mean": 0.6919605116985967,
+    "patient_roc_auc_std": 0.05287811023042669,
+    "patient_pr_auc_mean": 0.19405416548607246
+  }
+}

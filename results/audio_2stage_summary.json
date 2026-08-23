@@ -1,0 +1,8 @@
+{
+  "stage1_cas_auc_mean": 0.7994072406405477,
+  "stage1_das_auc_mean": 0.7507388955119401,
+  "stage2_roc_auc_mean": 0.6469077226623383,
+  "stage2_roc_auc_std": 0.08342221019478793,
+  "stage2_pr_auc_mean": 0.159993493105276,
+  "pooled_oof_roc_auc": 0.6207671427935745
+}
