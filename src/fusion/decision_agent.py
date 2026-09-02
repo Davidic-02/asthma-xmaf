@@ -42,7 +42,7 @@ import pandas as pd
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, roc_curve
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 
@@ -53,6 +53,7 @@ SEED = 42
 N_SPLITS = 5
 TOP_K = 3                 # features cited in the narrative
 ABSTAIN_FRACTION = 0.15   # share of cases referred rather than predicted
+TARGET_SENSITIVITY = 0.90 # operating point for a case-finding tool
 CONFLICT_GAP = 0.35       # agent disagreement that triggers a flag
 
 SYMPTOM = [
@@ -182,7 +183,11 @@ def main() -> None:
         pp_tr, pp_te = agent_prob(a_p, Xp[tr]), agent_prob(a_p, Xp[te])
         p_sym[te], p_pul[te] = ps_te, pp_te
 
-        meta = LogisticRegression(max_iter=5000, class_weight="balanced").fit(
+        # No class_weight here: the inputs are already calibrated probabilities,
+        # and re-weighting the classes would fit the meta-learner to a 50/50
+        # prior rather than the 12.7% prevalence actually observed, which
+        # inflates every fused probability and wrecks calibration.
+        meta = LogisticRegression(max_iter=5000).fit(
             np.column_stack([ps_tr, pp_tr, has_pulm[tr].astype(float)]), y[tr])
         p_fus[te] = meta.predict_proba(
             np.column_stack([ps_te, pp_te, has_pulm[te].astype(float)]))[:, 1]
@@ -204,11 +209,19 @@ def main() -> None:
     comp_rnd = np.concatenate(comp_rnd); suff_rnd = np.concatenate(suff_rnd)
 
     # --- decisions with abstention
-    # The uncertain band is the middle of the predicted-risk distribution,
-    # not a fixed window around 0.5, since prevalence is only 12.7%.
-    band_lo = np.quantile(p_fus, 0.5 - ABSTAIN_FRACTION / 2)
-    band_hi = np.quantile(p_fus, 0.5 + ABSTAIN_FRACTION / 2)
-    abstain = (p_fus > band_lo) & (p_fus < band_hi)
+    # Uncertainty is distance from the operating threshold, not distance from
+    # the median prediction: at 12.7% prevalence the median prediction sits
+    # near 0.05, so quantiles of the predicted distribution would refer the
+    # model's most confident negatives rather than genuinely borderline cases.
+    # The threshold is set for 90% sensitivity - the operating point a
+    # case-finding tool needs - and is fitted per fold on training data only.
+    thr = np.zeros(n)
+    for tr, te in cv.split(Xs, y):
+        _, tpr_tr, cuts = roc_curve(y[tr], p_fus[tr])
+        thr[te] = cuts[int(np.argmin(np.abs(tpr_tr - TARGET_SENSITIVITY)))]
+
+    margin = np.abs(p_fus - thr)
+    abstain = margin <= np.quantile(margin, ABSTAIN_FRACTION)
     conflict = (np.abs(p_sym - p_pul) > CONFLICT_GAP) & has_pulm
 
     print(f"cohort {n:,} | asthma {y.sum():,} ({y.mean():.1%})")
@@ -233,7 +246,7 @@ def main() -> None:
         picks.append(int(np.flatnonzero(conflict)[0]))
     for i in picks:
         decision = ("refer for review" if abstain[i]
-                    else ("asthma likely" if p_fus[i] >= 0.5 else "asthma unlikely"))
+                    else ("asthma likely" if p_fus[i] >= thr[i] else "asthma unlikely"))
         text, cited = narrate(df.iloc[i], SYMPTOM, shap_all[i], p_fus[i],
                               decision, has_pulm[i], conflict[i])
         print(f"\n  [child {i}] true label = {'asthma' if y[i] else 'no asthma'}")

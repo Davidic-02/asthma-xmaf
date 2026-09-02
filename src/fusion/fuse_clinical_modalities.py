@@ -110,7 +110,9 @@ def main() -> None:
         #     explicitly whether the pulmonary evidence exists at all
         Z_tr = np.column_stack([ps_tr, pp_tr, has_pulm[tr].astype(float)])
         Z_te = np.column_stack([ps_te, pp_te, has_pulm[te].astype(float)])
-        meta = LogisticRegression(max_iter=5000, class_weight="balanced")
+        # See decision_agent.py: class-weighting a meta-learner over
+        # calibrated probabilities destroys their calibration.
+        meta = LogisticRegression(max_iter=5000)
         meta.fit(Z_tr, y[tr])
         oof["fusion"][te] = meta.predict_proba(Z_te)[:, 1]
 
