@@ -58,9 +58,17 @@ def delim(inner: str, left: str = "(", right: str = ")") -> str:
 
 
 def nary(chr_: str, lo: str, hi: str, body: str) -> str:
-    """An n-ary operator (sum, product) with limits."""
+    """An n-ary operator (sum, product) with optional limits.
+
+    An empty limit must be *hidden*, not supplied as an empty element: Word
+    renders a vacant math slot as a dotted placeholder box, which is what an
+    empty <m:sup/> would produce on screen and in print.
+    """
+    sub_hide = "1" if not lo.strip() else "0"
+    sup_hide = "1" if not hi.strip() else "0"
     return (f'<m:nary><m:naryPr><m:chr m:val="{chr_}"/><m:limLoc m:val="undOvr"/>'
-            f'<m:subHide m:val="0"/><m:supHide m:val="0"/></m:naryPr>'
+            f'<m:subHide m:val="{sub_hide}"/><m:supHide m:val="{sup_hide}"/>'
+            f"</m:naryPr>"
             f"<m:sub>{lo}</m:sub><m:sup>{hi}</m:sup><m:e>{body}</m:e></m:nary>")
 
 

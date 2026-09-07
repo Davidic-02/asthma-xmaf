@@ -61,11 +61,12 @@ EQ5 = (
           sub(r("γ"), op("3")) + r("m"))
 )
 
-# (6) abstention band - quantiles of the fused probability, alpha = 0.15
+# (6) abstention - refer cases nearest the operating threshold t
 EQ6 = (
     func("refer") + delim(r("x")) + op(" = ") + op("1") + op("  ⟺  ") +
-    sub(r("q"), op("0.5 − α/2")) + op(" < ") + sub(r("p"), op("fused")) +
-    op(" < ") + sub(r("q"), op("0.5 + α/2"))
+    delim(sub(r("p"), op("fused")) + op(" − ") + r("t"), "|", "|") +
+    op(" ≤ ") + sub(r("Q"), r("α")) +
+    delim(delim(sub(r("p"), op("fused")) + op(" − ") + r("t"), "|", "|"))
 )
 
 # (7) inter-agent conflict flag - CONFLICT_GAP = 0.35
@@ -110,7 +111,7 @@ EQ10 = (
 EQ11 = (
     r("T") + delim(r("t")) + op(" = ") +
     frac(func("max") + op(" ") +
-         sub(r("S"), op("")) + delim(r("t") + op(", ") + r("f")),
+         r("S") + delim(r("t") + op(", ") + r("f")),
          frac(op("1"), delim(r("F"), "|", "|")) +
          nary("∑", r("f") + op(" ∈ ") + r("F"), op(""),
               r("S") + delim(r("t") + op(", ") + r("f"))))
@@ -135,7 +136,7 @@ PLACEMENT = [
     ("All agents use L2-regularised logistic regression", [EQ1, EQ2, EQ3]),
     ("Clip probabilities are averaged per child", [EQ12]),
     ("A logistic meta-learner over the agents", [EQ5]),
-    ("Cases falling in the central 15% of the predicted-risk", [EQ6, EQ7]),
+    ("The 15% of cases lying closest to the operating threshold", [EQ6, EQ7]),
     ("For the standardised linear agents the exact Shaple", [EQ4]),
     ("equal number of randomly chosen features is manipulated", [EQ8, EQ9]),
 ]
