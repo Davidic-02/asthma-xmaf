@@ -1,0 +1,46 @@
+[
+  {
+    "child": 5157,
+    "true_label": 0,
+    "conflict": false,
+    "text": "Asthma likelihood 98% - asthma likely. Principal contributing factors: wheezing in the past 12 months (increasing risk); exercise-induced wheezing (increasing risk); family history of asthma (increasing risk).",
+    "cited": [
+      "wheeze_12mo",
+      "exercise_wheeze",
+      "family_hx_asthma"
+    ]
+  },
+  {
+    "child": 4507,
+    "true_label": 0,
+    "conflict": false,
+    "text": "Asthma likelihood 5% - refer for review. Principal contributing factors: family history of asthma (decreasing risk); wheezing in the past 12 months (decreasing risk); height (increasing risk).",
+    "cited": [
+      "family_hx_asthma",
+      "wheeze_12mo",
+      "height"
+    ]
+  },
+  {
+    "child": 6197,
+    "true_label": 0,
+    "conflict": false,
+    "text": "Asthma likelihood 3% - asthma unlikely. Principal contributing factors: family history of asthma (decreasing risk); household size (decreasing risk); ethnicity (decreasing risk).",
+    "cited": [
+      "family_hx_asthma",
+      "household_size",
+      "ethnicity"
+    ]
+  },
+  {
+    "child": 12,
+    "true_label": 0,
+    "conflict": true,
+    "text": "Asthma likelihood 53% - asthma likely. Principal contributing factors: wheezing in the past 12 months (increasing risk); nocturnal dry cough (increasing risk); family history of asthma (decreasing risk). Note: the clinical and pulmonary agents disagree materially; clinical review is recommended.",
+    "cited": [
+      "wheeze_12mo",
+      "nocturnal_dry_cough",
+      "family_hx_asthma"
+    ]
+  }
+]

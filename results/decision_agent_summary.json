@@ -1,10 +1,10 @@
 {
-  "roc_auc_all": 0.870836687790376,
-  "roc_auc_non_abstained": 0.8811254995297545,
-  "coverage": 0.8500553009954179,
-  "n_conflict": 517,
-  "comprehensiveness_cited": 0.09992475016006068,
-  "comprehensiveness_random": 0.03564763605803599,
-  "sufficiency_cited": 0.016766150973292676,
-  "sufficiency_random": 0.08444842128258342
+  "roc_auc_all": 0.8715052554409668,
+  "roc_auc_non_abstained": 0.8838439416199169,
+  "coverage": 0.8498972981513667,
+  "n_conflict": 511,
+  "comprehensiveness_cited": 0.09905841556935129,
+  "comprehensiveness_random": 0.03442621157830906,
+  "sufficiency_cited": 0.01890020102197145,
+  "sufficiency_random": 0.08543191111745259
 }

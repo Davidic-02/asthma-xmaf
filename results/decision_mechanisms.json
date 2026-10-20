@@ -1,0 +1,118 @@
+{
+  "n": 6329,
+  "positives": 805,
+  "abstention_fusion": {
+    "n_referred": 950,
+    "asthma_in_referred": 41,
+    "share_of_asthma_referred": 0.05093167701863354,
+    "prevalence_referred": 0.0431578947368421,
+    "prevalence_retained": 0.14203383528536903,
+    "errors_total": 2738,
+    "share_of_errors_in_referred": 0.15924032140248356,
+    "auc_all": 0.8715052554409668,
+    "auc_retained": 0.8838439416199169,
+    "all": {
+      "sens": 0.8981366459627329,
+      "spec": 0.5191889934829833,
+      "ppv": 0.21396862977212194,
+      "npv": 0.9722033898305085,
+      "tp": 723,
+      "fp": 2656,
+      "fn": 82,
+      "tn": 2868
+    },
+    "retained": {
+      "sens": 0.9280104712041884,
+      "spec": 0.5131094257854821,
+      "ppv": 0.239851150202977,
+      "npv": 0.9773008666941808,
+      "tp": 709,
+      "fp": 2247,
+      "fn": 55,
+      "tn": 2368
+    },
+    "share_of_errors_random_referral": 0.1501121256391527
+  },
+  "abstention_flat": {
+    "n_referred": 950,
+    "asthma_in_referred": 46,
+    "share_of_asthma_referred": 0.05714285714285714,
+    "prevalence_referred": 0.04842105263157895,
+    "prevalence_retained": 0.1411042944785276,
+    "errors_total": 2852,
+    "share_of_errors_in_referred": 0.13113604488078542,
+    "auc_all": 0.8670263244295925,
+    "auc_retained": 0.88341147214665,
+    "all": {
+      "sens": 0.8894409937888199,
+      "spec": 0.4998189717595945,
+      "ppv": 0.2058062661684392,
+      "npv": 0.9687719298245614,
+      "tp": 716,
+      "fp": 2763,
+      "fn": 89,
+      "tn": 2761
+    },
+    "retained": {
+      "sens": 0.922266139657444,
+      "spec": 0.4764069264069264,
+      "ppv": 0.22443090734209684,
+      "npv": 0.9738938053097345,
+      "tp": 700,
+      "fp": 2419,
+      "fn": 59,
+      "tn": 2201
+    }
+  },
+  "abstention_ci": {
+    "share_asthma": [
+      0.0361145703611457,
+      0.06599274575361189
+    ],
+    "share_err": [
+      0.1456305482214507,
+      0.17291830545936704
+    ],
+    "auc_gain": [
+      0.006296787526396686,
+      0.018528110148474858
+    ],
+    "npv_keep": [
+      0.9712049690807861,
+      0.9830580178619035
+    ],
+    "sens_keep": [
+      0.9090881136084088,
+      0.9459824014143898
+    ]
+  },
+  "conflict": {
+    "n_flagged": 511,
+    "share_of_cohort": 0.08073945331015958,
+    "asthma_in_flagged": 374,
+    "share_of_all_asthma": 0.4645962732919255,
+    "prevalence_flagged": 0.7318982387475538,
+    "prevalence_unflagged": 0.07408044001375043,
+    "symptom_higher": {
+      "n": 491,
+      "prevalence": 0.7515274949083504
+    },
+    "pulmonary_higher": {
+      "n": 20,
+      "prevalence": 0.25
+    },
+    "flat_miss_rate_in_flagged": 0.0,
+    "flat_miss_rate_elsewhere": 0.20649651972157773,
+    "incremental": {
+      "odds_ratio": 1.2327177407638608,
+      "or_ci": [
+        0.847883168632682,
+        1.7657506299320922
+      ],
+      "lr_chi2": 1.0189108604986359,
+      "p": 0.31277749545970607,
+      "auc_flat_only": 0.8670263244295925,
+      "auc_flat_plus_flag": 0.8671081806774279
+    }
+  }
+}

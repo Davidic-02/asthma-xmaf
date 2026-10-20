@@ -1,0 +1,41 @@
+{
+  "symptom_agent": {
+    "Logistic regression (reported)": {
+      "roc_auc_mean": 0.8678811032919785,
+      "roc_auc_std": 0.022828549256449473,
+      "pr_auc_mean": 0.6535159354685275,
+      "pr_auc_std": 0.03329256995432518,
+      "brier_mean": 0.06798560221588465,
+      "roc_auc_oof": 0.8629443062682997
+    },
+    "Random forest": {
+      "roc_auc_mean": 0.8608575992560759,
+      "roc_auc_std": 0.024945034315554292,
+      "pr_auc_mean": 0.6567727439262431,
+      "pr_auc_std": 0.04616930190375767,
+      "brier_mean": 0.0671838798777566,
+      "roc_auc_oof": 0.8595279323201749
+    },
+    "Gradient boosting": {
+      "roc_auc_mean": 0.8534111665605606,
+      "roc_auc_std": 0.027849257210171237,
+      "pr_auc_mean": 0.645055316891403,
+      "pr_auc_std": 0.04006297459405762,
+      "brier_mean": 0.06866234167067833,
+      "roc_auc_oof": 0.8522886017423685
+    },
+    "Neural network (64-32)": {
+      "roc_auc_mean": 0.8605536153679154,
+      "roc_auc_std": 0.018942599140678633,
+      "pr_auc_mean": 0.6445788921808606,
+      "pr_auc_std": 0.05686946027601169,
+      "brier_mean": 0.06943223512870815,
+      "roc_auc_oof": 0.8592157991553515
+    }
+  },
+  "fusion": {
+    "logistic": 0.871082706293486,
+    "Random forest": 0.8649511336190806
+  },
+  "best_alternative": "Random forest"
+}

@@ -23,3 +23,17 @@ __pycache__/
 paper/*.docx
 paper/*.md
 !paper/README.md
+
+# Manuscript-building scripts: they embed the manuscript and response text as strings, so they
+# stay local with the manuscript itself (see the note above). The generic quality checks
+# (tools/verify_claims.py, check_manuscript.py, docxblocks.py) are published.
+tools/add_authors.py
+tools/add_equations.py
+tools/final_fixes.py
+tools/fix_citations.py
+tools/make_bmc_version.py
+tools/make_faith_version.py
+tools/make_response_letter*.py
+tools/omml.py
+tools/revise_faith_r*.py
+tools/update_results_text.py

@@ -256,27 +256,41 @@ def figure6():
 
     fig, axes = plt.subplots(1, 3, figsize=(12.8, 3.9))
 
-    # (a) risk-coverage: discrimination as the least certain cases are referred
+    # (a) risk-coverage under the Decision Agent's own referral rule: the cases
+    # whose fused probability lies nearest the per-fold 90%-sensitivity threshold
+    # are referred. (An earlier version ranked cases by |p - 0.5|, which is not
+    # the rule the paper describes and produced a curve that contradicted the
+    # reported 0.880 at 85% coverage.) The pooled-feature model is shown under
+    # the same rule, and random referral leaves discrimination unchanged.
+    import sys
+    sys.path.insert(0, str(ROOT / "src" / "experiments"))
+    from decision_mechanisms import fold_thresholds
     ax = axes[0]
-    p, y = dec["p_fused"].to_numpy(), dec["y"].to_numpy()
-    unc = np.abs(p - 0.5)
-    order = np.argsort(-unc)          # most certain first
-    covs, aucs = [], []
-    for cov in np.linspace(0.5, 1.0, 26):
-        k = max(int(cov * len(p)), 50)
-        idx = order[:k]
-        if len(np.unique(y[idx])) < 2:
-            continue
-        covs.append(k / len(p))
-        aucs.append(roc_auc_score(y[idx], p[idx]))
-    ax.plot(covs, aucs, "-", color=RED, linewidth=1.6)
+    y = dec["y"].to_numpy()
+    curves = {}
+    for label, p in (("Decision Agent (fusion)", dec["p_fused"].to_numpy()),
+                     ("Pooled-feature model", fus["p_flat"].to_numpy())):
+        margin = np.abs(p - fold_thresholds(y, p))
+        covs, aucs = [], []
+        for f in np.linspace(0.0, 0.5, 26):
+            keep = margin > np.quantile(margin, f) if f > 0 else np.ones(len(p), bool)
+            covs.append(keep.mean())
+            aucs.append(roc_auc_score(y[keep], p[keep]))
+        curves[label] = (covs, aucs)
+    ax.plot(*curves["Decision Agent (fusion)"], "-", color=RED, linewidth=1.8,
+            label="Decision Agent (fusion)")
+    ax.plot(*curves["Pooled-feature model"], "--", color=DARK, linewidth=1.4,
+            label="Pooled-feature model")
+    ax.axhline(roc_auc_score(y, dec["p_fused"]), color=GREY, linewidth=0.9,
+               linestyle=(0, (1, 2)), label="Random referral (no change)")
     ax.axvline(s["coverage"], color=SUB, linewidth=0.9, linestyle=(0, (3, 2)))
-    ax.text(s["coverage"] - 0.01, min(aucs) + 0.004,
+    ax.text(s["coverage"] + 0.012, ax.get_ylim()[1] - 0.0006,
             f"operating point\ncoverage {s['coverage']:.2f}",
-            fontsize=7, color=SUB, ha="right")
+            fontsize=7, color=SUB, ha="left", va="top")
     ax.set_xlabel("Coverage (fraction retained)")
-    ax.set_ylabel("ROC-AUC on retained cases")
-    ax.set_title("(a) Risk–coverage")
+    ax.set_ylabel("ROC-AUC on retained children")
+    ax.set_title("(a) Risk\u2013coverage")
+    ax.legend(fontsize=6.8, loc="lower left")
     tidy(ax)
 
     # (b) graceful degradation by modality availability
@@ -298,7 +312,7 @@ def figure6():
     ax.set_ylabel("ROC-AUC")
     ax.set_ylim(0.75, 0.92)
     ax.set_title("(b) Graceful degradation")
-    ax.legend(fontsize=7.4, loc="lower left")
+    ax.legend(fontsize=7.4, loc="upper right")
     tidy(ax)
 
     # (c) explanation faithfulness against a random-feature control

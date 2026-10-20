@@ -17,6 +17,7 @@ Insets drawn from real data:
 Usage:  python src/figures/make_pipeline_figure.py
 """
 
+import json
 from pathlib import Path
 
 import matplotlib
@@ -31,6 +32,17 @@ ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "results"
 PROC = ROOT / "data" / "processed"
 OUT = ROOT / "paper" / "figures"
+
+# Read reported metrics from the result files rather than writing them into
+# the figure: a hand-typed number survives a rerun and silently goes stale.
+_FUS = json.loads((RES / "fusion_summary.json").read_text())
+_DEC = json.loads((RES / "decision_agent_summary.json").read_text())
+_EMB = json.loads((RES / "audio_embedding_comparison.json").read_text())
+_SYM = _FUS["symptom"]["roc_auc"]
+_PUL = _FUS["pulmonary"]["roc_auc"]
+_ACO = _EMB["combined"]["roc_auc_mean"]
+_FUSED = _FUS["fusion"]["roc_auc"]
+_RATIO = _DEC["comprehensiveness_cited"] / _DEC["comprehensiveness_random"]
 
 FIG_W, FIG_H = 13.6, 11.2
 
@@ -194,9 +206,9 @@ def panel_calibration(a):
 def panel_roc(a):
     d = pd.read_csv(RES / "fusion_oof_predictions.csv")
     y = d["y"].to_numpy()
-    for col, lab, c, lw in (("p_symptom", "symptom 0.863", "#6C8AA6", 0.8),
-                            ("p_pulmonary", "pulmonary 0.646", "#B0BCC8", 0.8),
-                            ("p_fusion", "fusion 0.870", POS, 1.3)):
+    for col, lab, c, lw in (("p_symptom", f"symptom {_SYM:.3f}", "#6C8AA6", 0.8),
+                            ("p_pulmonary", f"pulmonary {_PUL:.3f}", "#B0BCC8", 0.8),
+                            ("p_fusion", f"fusion {_FUSED:.3f}", POS, 1.3)):
         fpr, tpr, _ = roc_curve(y, d[col].to_numpy())
         a.plot(fpr, tpr, linewidth=lw, color=c, label=lab)
     a.plot([0, 1], [0, 1], linewidth=0.6, color="#C3CDD7", linestyle=(0, (3, 2)))
@@ -283,9 +295,9 @@ def main() -> None:
     panel_cv(a)
 
     stage(ax, x2, R2, w3, RH, 5, "Modality Agent Training")
-    for i, (nm, sc) in enumerate([("Symptom Agent", "ROC-AUC 0.863"),
-                                  ("Pulmonary Agent", "ROC-AUC 0.646"),
-                                  ("Acoustic Agent", "ROC-AUC 0.732")]):
+    for i, (nm, sc) in enumerate([("Symptom Agent", f"ROC-AUC {_SYM:.3f}"),
+                                  ("Pulmonary Agent", f"ROC-AUC {_PUL:.3f}"),
+                                  ("Acoustic Agent", f"ROC-AUC {_ACO:.3f}")]):
         pbox(ax, x2 + 0.03, R2 + 0.185 - i * 0.062, 0.23, 0.052,
              [nm, sc], bold=False)
 
@@ -305,7 +317,7 @@ def main() -> None:
          ["abstain on low confidence"])
     pbox(ax, L + 0.012, R3 + 0.058, 0.185, 0.05,
          ["flag inter-agent conflict"])
-    ax.text(L + 0.105, R3 + 0.032, "fused ROC-AUC 0.870",
+    ax.text(L + 0.105, R3 + 0.032, f"fused ROC-AUC {_FUSED:.3f}",
             ha="center", fontsize=6.6, color=SUB)
 
     xb = L + w4 + GAP
@@ -321,7 +333,7 @@ def main() -> None:
     panel_shap(a)
     ax.text(xc + w4 / 2, R3 + 0.055, "deletion-verified faithfulness",
             ha="center", fontsize=6.6, color=SUB)
-    ax.text(xc + w4 / 2, R3 + 0.032, "comprehensiveness 2.8× random",
+    ax.text(xc + w4 / 2, R3 + 0.032, f"comprehensiveness {_RATIO:.1f}× random",
             ha="center", fontsize=6.6, color=SUB)
 
     xd = L + 3 * (w4 + GAP)

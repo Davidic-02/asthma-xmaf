@@ -1,0 +1,19 @@
+{
+  "n_patients": 747,
+  "n_asthma": 66,
+  "patient_auc": 0.6207671427935745,
+  "ci": [
+    0.5504272522873778,
+    0.6882370456007287
+  ],
+  "ci_width": 0.13780979331335097,
+  "combined_minus_handcrafted": 0.04958926598900837,
+  "fold_se": 0.04478696921643908,
+  "handcrafted_patient_auc": 0.6860009789525208,
+  "handcrafted_ci": [
+    0.6138884621012585,
+    0.7538413670361805
+  ],
+  "handcrafted_ci_width": 0.13995290493492207,
+  "note_2stage": "patient_auc/ci fields refer to the two-stage model"
+}

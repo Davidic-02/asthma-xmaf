@@ -1,0 +1,118 @@
+{
+  "development": {
+    "n": 6329,
+    "prevalence": 0.1271922894612103,
+    "cycles": [
+      "2007-2008",
+      "2009-2010",
+      "2011-2012"
+    ]
+  },
+  "validation": {
+    "n": 4111,
+    "prevalence": 0.12211140841644369,
+    "cycles": [
+      "2015-2016",
+      "2017-2018"
+    ]
+  },
+  "published_internal": {
+    "roc_auc": 0.8670263244295925,
+    "pr_auc": 0.6549212506386317,
+    "brier": 0.06691128724786363,
+    "cv_auc_mean": 0.873076483174337,
+    "cv_auc_std": 0.01943777156025917
+  },
+  "transportable_internal": {
+    "roc_auc": 0.7334949469508547,
+    "pr_auc": 0.3102744197896312,
+    "brier": 0.10009613029536472,
+    "cv_auc_mean": 0.7346994284117603,
+    "cv_auc_std": 0.029432619658103232,
+    "roc_auc_ci": [
+      0.7150461010343001,
+      0.7528473874624546
+    ]
+  },
+  "transportable_external": {
+    "roc_auc": 0.7268816118181749,
+    "pr_auc": 0.26351215303975517,
+    "brier": 0.09880020013763159,
+    "roc_auc_ci": [
+      0.7020348469052619,
+      0.7511080241518283
+    ],
+    "pr_auc_ci": [
+      0.23465817411888967,
+      0.29962687511300284
+    ],
+    "calibration": {
+      "slope": 0.9497757664917744,
+      "intercept": -0.14661693613726978,
+      "mean_predicted": 0.1283789369568114,
+      "observed": 0.12211140841644369
+    },
+    "operating_point": {
+      "threshold": 0.05377109026611137,
+      "sensitivity": 0.9143426294820717,
+      "specificity": 0.24909947353837628,
+      "ppv": 0.14484064373619437,
+      "npv": 0.9543524416135881,
+      "accuracy": 0.3303332522500608,
+      "tp": 459,
+      "fp": 2710,
+      "fn": 43,
+      "tn": 899
+    }
+  },
+  "development_operating_point": {
+    "threshold": 0.05377109026611137,
+    "sensitivity": 0.9006211180124224,
+    "specificity": 0.2490948587979725,
+    "ppv": 0.14877898625076955,
+    "npv": 0.945054945054945,
+    "accuracy": 0.3319639753515563,
+    "tp": 725,
+    "fp": 4148,
+    "fn": 80,
+    "tn": 1376
+  },
+  "per_cycle": {
+    "2015-2016": {
+      "n": 2222,
+      "prevalence": 0.126012601260126,
+      "roc_auc": 0.7132080329557158
+    },
+    "2017-2018": {
+      "n": 1889,
+      "prevalence": 0.11752249867654843,
+      "roc_auc": 0.7452712160270649
+    }
+  },
+  "generalisation_gap": 0.0066133351326798095,
+  "transportable_features": [
+    "sex",
+    "age",
+    "ethnicity",
+    "income_poverty_ratio",
+    "household_size",
+    "family_hx_asthma",
+    "household_smoker",
+    "n_household_smokers",
+    "bmi",
+    "height",
+    "log_cotinine"
+  ],
+  "retired_after_2012": [
+    "wheeze_12mo",
+    "wheeze_attacks",
+    "exercise_wheeze",
+    "nocturnal_dry_cough",
+    "fev1",
+    "fvc",
+    "pef",
+    "fev1_fvc_ratio",
+    "fev1_per_ht",
+    "pef_per_ht"
+  ]
+}
