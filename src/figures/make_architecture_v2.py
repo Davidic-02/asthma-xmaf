@@ -18,7 +18,7 @@ OUT = ROOT / "paper" / "figures"
 
 
 def main():
-    fig, ax = canvas(13, 7.4)
+    fig, ax = canvas(6.5, 3.7)
 
     # ---- lane A: evaluated jointly --------------------------------------
     panel(ax, 0.006, 0.445, 0.988, 0.520,

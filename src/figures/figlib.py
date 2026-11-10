@@ -9,6 +9,17 @@ PALE, RED, GREY = "#E9EFF5", "#D64545", "#8A97A3"
 PANEL, INK, SUB = "#6F7C89", "#12202B", "#3F5261"
 AMBER = "#F2B544"
 
+plt.rcParams.update({
+    "font.size": 8,
+    "axes.labelsize": 8,
+    "axes.titlesize": 9,
+    "xtick.labelsize": 8,
+    "ytick.labelsize": 8,
+    "legend.fontsize": 8,
+    "figure.dpi": 100,
+    "savefig.dpi": 400,
+})
+
 
 def canvas(w, h):
     fig = plt.figure(figsize=(w, h))
@@ -50,6 +61,7 @@ def arrow(ax, p0, p1, *, color=INK, dashed=False, rad=0.0, lw=1.6):
 def save(fig, out, name):
     out.mkdir(parents=True, exist_ok=True)
     for ext, kw in (("png", {"dpi": 300}), ("pdf", {})):
-        fig.savefig(out / f"{name}.{ext}", format=ext, facecolor="white", **kw)
+        fig.savefig(out / f"{name}.{ext}", format=ext, bbox_inches="tight",
+                    facecolor="white", **kw)
     plt.close(fig)
     print(f"wrote {out / name}.png / .pdf")
