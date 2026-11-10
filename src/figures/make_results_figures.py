@@ -38,9 +38,9 @@ GREY = "#8C9AA6"
 SUB = "#3D4F5C"
 
 plt.rcParams.update({
-    "font.size": 9,
-    "axes.labelsize": 9,
-    "axes.titlesize": 9.5,
+    "font.size": 8,
+    "axes.labelsize": 8,
+    "axes.titlesize": 9,
     "axes.linewidth": 0.8,
     "axes.edgecolor": SUB,
     "xtick.color": SUB,
@@ -48,7 +48,11 @@ plt.rcParams.update({
     "text.color": "#16232E",
     "axes.labelcolor": SUB,
     "legend.frameon": False,
-    "figure.dpi": 110,
+    "xtick.labelsize": 8,
+    "ytick.labelsize": 8,
+    "legend.fontsize": 8,
+    "figure.dpi": 100,
+    "savefig.dpi": 400,
 })
 
 
@@ -78,7 +82,7 @@ def figure3():
         ("p_fusion", "Fusion (Decision Agent)", RED, 1.9, "-"),
     ]
 
-    fig, axes = plt.subplots(1, 3, figsize=(12.4, 3.9))
+    fig, axes = plt.subplots(1, 3, figsize=(6.5, 3.2))
 
     ax = axes[0]
     for col, lab, c, lw, ls in series:
@@ -163,7 +167,7 @@ def figure4():
     def pretty(s):
         return s.map(lambda k: ETHNICITY.get(k, RENAME.get(k, k.replace("_", " "))))
 
-    fig, axes = plt.subplots(1, 2, figsize=(11.0, 4.2))
+    fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.2))
 
     ax = axes[0]
     ax.barh(range(len(shap)), shap.mean_abs_shap, color=BLUE, height=0.7)
@@ -209,7 +213,7 @@ def figure5():
     means = [emb[k]["roc_auc_mean"] for k in keys]
     stds = [emb[k]["roc_auc_std"] for k in keys]
 
-    fig, axes = plt.subplots(1, 2, figsize=(11.4, 4.2))
+    fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.2))
 
     ax = axes[0]
     best = int(np.argmax(means))
@@ -254,7 +258,7 @@ def figure6():
     s = json.loads((RES / "decision_agent_summary.json").read_text())
     fus = pd.read_csv(RES / "fusion_oof_predictions.csv")
 
-    fig, axes = plt.subplots(1, 3, figsize=(12.8, 3.9))
+    fig, axes = plt.subplots(1, 3, figsize=(6.5, 3.2))
 
     # (a) risk-coverage under the Decision Agent's own referral rule: the cases
     # whose fused probability lies nearest the per-fold 90%-sensitivity threshold
@@ -355,7 +359,7 @@ def figure7():
     fpr, tpr, thr = roc_curve(y, p)
     t90 = thr[int(np.argmin(np.abs(tpr - 0.90)))]
 
-    fig, axes = plt.subplots(1, 2, figsize=(10.4, 4.3))
+    fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.2))
     for ax, (cut, title) in zip(axes, [
             (0.5, "(a) Default threshold (0.50)"),
             (t90, f"(b) Screening threshold ({t90:.2f})")]):

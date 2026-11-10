@@ -26,7 +26,7 @@ def main():
     rec = pd.read_csv(RES / "audio_agent_oof_predictions.csv")
     n_rec, n_pat = len(rec), rec.patient_id.nunique()
 
-    fig, ax = canvas(13, 6.9)
+    fig, ax = canvas(6.5, 3.45)
     W, G, X0 = 0.1495, 0.0176, 0.006
     xs = [X0 + k * (W + G) for k in range(6)]
 
