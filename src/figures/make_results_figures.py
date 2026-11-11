@@ -82,7 +82,8 @@ def figure3():
         ("p_fusion", "Fusion (Decision Agent)", RED, 1.9, "-"),
     ]
 
-    fig, axes = plt.subplots(1, 3, figsize=(6.5, 3.2))
+    fig = plt.figure(figsize=(6.5, 4.7))
+    axes = [fig.add_subplot(2, 2, i) for i in (1, 2, 3)]
 
     ax = axes[0]
     for col, lab, c, lw, ls in series:
@@ -132,7 +133,7 @@ def figure3():
     ax.legend(loc="upper left", fontsize=7.4)
     tidy(ax)
 
-    fig.tight_layout()
+    fig.tight_layout(pad=1.2, w_pad=1.0, h_pad=1.2)
     save(fig, "figure3_clinical_performance")
 
 

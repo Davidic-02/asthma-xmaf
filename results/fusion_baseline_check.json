@@ -1,0 +1,9 @@
+{
+  "symptom": 0.8629443062682997,
+  "simple_average": 0.8633261521716642,
+  "fusion": 0.871082706293486,
+  "flat": 0.8670263244295925,
+  "simple_average_minus_symptom": 0.0003818459033645416,
+  "fusion_minus_simple_average": 0.007756554121821857,
+  "rounding_note": "The symptom and simple-average AUCs both round to 0.863 at three decimals but are not equal."
+}
